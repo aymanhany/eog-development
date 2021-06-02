@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-
+import styles from './featuredVideo.module.css';
 import axios from 'axios';
-
+import clsx from 'clsx';
 // Import Swiper React components
 // import { Swiper, SwiperSlide } from 'swiper/react';
 // import SwiperCore, { Navigation } from 'swiper';
@@ -18,10 +18,12 @@ import Loading from '../Loading';
 
 function FeaturedVideo() {
 	const [videos, setVideos] = useState([]);
+	const [currentVideo, setCurrentVideo] = useState(undefined);
 	useEffect(async () => {
 		const resft = await axios.get(
 			'https://egyptoil-gas.com/wp-json/wp/v2/tv?per_page=10&_embed'
 		);
+		setCurrentVideo(resft.data[0]);
 		setVideos(resft.data);
 	}, []);
 
@@ -42,28 +44,53 @@ function FeaturedVideo() {
 							{/* <SwiperArrows prev={videoPrevRef} next={videoNextRef} /> */}
 						</div>
 						<div className="features-video-box owl-wrapper">
-							<Carousel>
-								{videos
-									? videos.map((post) => (
-											<div className="item news-post video-post" key={post.id}>
-												<img
-													src={post.featured_media_src_url}
-													alt={post.title.rendered}
-												/>
-												<a
-													target="_blank"
-													href={post.acf.video}
-													className="video-link"
-												>
-													<i className="fa fa-play-circle-o" />
-												</a>
-												<div className="hover-box">
-													<h2>{post.title.rendered}</h2>
-												</div>
+							<div class={styles.videoSlider}>
+								<div className={styles.currentSlide}>
+									{currentVideo && (
+										<div
+											className="item news-post video-post"
+											key={currentVideo.id}
+										>
+											<img
+												src={currentVideo.featured_media_src_url}
+												alt={currentVideo.title.rendered}
+											/>
+											<a
+												target="_blank"
+												href={currentVideo.acf.video}
+												className="video-link"
+											>
+												<i className="fa fa-play-circle-o" />
+											</a>
+											<div className="hover-box">
+												<h2>{currentVideo.title.rendered}</h2>
 											</div>
-									  ))
-									: 'loading..'}
-							</Carousel>
+										</div>
+									)}
+								</div>
+								<ul class={styles.thumbnails}>
+									{videos
+										? videos.map((post, i) => (
+												<li key={i} onClick={() => setCurrentVideo(post)}>
+													<div
+														className={clsx(
+															styles.thumbnail,
+															post.id === currentVideo.id && styles.active,
+															'item news-post video-post'
+														)}
+														key={post.id}
+													>
+														<img
+															src={post.featured_media_src_url}
+															alt={post.title.rendered}
+														/>
+														<h2>{post.title.rendered}</h2>
+													</div>
+												</li>
+										  ))
+										: 'loading..'}
+								</ul>
+							</div>
 							{/* <Swiper
                             slidesPerView={4}
                             spaceBetween={15}
