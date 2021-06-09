@@ -17,6 +17,7 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 import TopViews from './TopViews';
 import Loading from './Loading';
+import { param } from 'jquery';
 
 function Archive({ match }) {
 	const [data, setData] = useState([]);
@@ -40,11 +41,14 @@ function Archive({ match }) {
 		},
 		[loading, hasMore]
 	);
+
 	useEffect(() => {
 		setPageNumber(1);
 		setData([]);
 		fetchData(1);
-	}, [match.params.type]);
+		setLoading(true);
+		setHasMore(true);
+	}, [match.params]);
 
 	useEffect(() => {
 		if (pageNumber === 1) return;
@@ -66,8 +70,41 @@ function Archive({ match }) {
 					setHasMore(false);
 					return;
 				}
-				setData((prev) => [...prev, ...res.data]);
-				setHasMore(res.data.length > 0);
+				let catData = [...res.data];
+				if (match?.params?.category) {
+					catData = [];
+					switch (match.params.type) {
+						case 'news':
+							catData = res.data.filter((item) =>
+								item.news_region.includes(parseInt(match?.params?.category))
+							);
+							break;
+						case 'publications':
+							catData = res.data.filter((item) =>
+								item.publications_category.includes(
+									parseInt(match?.params?.category)
+								)
+							);
+							break;
+						case 'events_coverage':
+							catData = res.data.filter((item) =>
+								item.events_category.includes(parseInt(match?.params?.category))
+							);
+							break;
+						default:
+							break;
+					}
+				}
+				setData((prev) => [...prev, ...catData]);
+				console.log(catData.length);
+				if (catData.length === 0) {
+					console.log('false');
+					setHasMore(false);
+				} else {
+					console.log('true');
+					setHasMore(res.data.length > 0);
+				}
+
 				setLoading(false);
 			})
 			.catch((err) => {
@@ -80,7 +117,7 @@ function Archive({ match }) {
 	return (
 		<section className="block-wrapper">
 			<div className="container">
-				{data.length > 0 ? (
+				{data.length > 0 && (
 					<div className="row">
 						<div className="col-sm-8">
 							{/* block content */}
@@ -172,8 +209,9 @@ function Archive({ match }) {
 							{/* End sidebar */}
 						</div>
 					</div>
-				) : (
-					<Loading />
+				)}
+				{!loading && data.length === 0 && (
+					<h4 className="my-5 text-center">No Data found</h4>
 				)}
 				{loading && <Loading />}
 			</div>

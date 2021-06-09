@@ -143,7 +143,7 @@ function TwoBoxes() {
 										</Swiper>
 										<h5 className="text-right my-2 mx-1">
 											<span>
-												<Link to="archive/publications">More &#8594;</Link>
+												<Link to="/archive/publications">More &#8594;</Link>
 											</span>
 										</h5>
 									</div>
@@ -155,7 +155,7 @@ function TwoBoxes() {
 												<div className="title-section">
 													<h1>
 														<span className="reports">
-															<Link to="archive/reports">Reports</Link>
+															<Link to="/archive/reports">Reports</Link>
 														</span>
 													</h1>
 													<SwiperArrows
@@ -229,7 +229,7 @@ function TwoBoxes() {
 													</Swiper>
 													<h5 className="text-right my-2 mx-1">
 														<span>
-															<Link to="archive/reports">More &#8594;</Link>
+															<Link to="/archive/reports">More &#8594;</Link>
 														</span>
 													</h5>
 												</div>
@@ -238,7 +238,7 @@ function TwoBoxes() {
 												<div className="title-section">
 													<h1>
 														<span className="world">
-															<Link to="archive/events_coverage">Events</Link>
+															<Link to="/archive/events_coverage">Events</Link>
 														</span>
 													</h1>
 												</div>
@@ -293,7 +293,9 @@ function TwoBoxes() {
 												</div>
 												<h5 className="text-right my-2 mx-1">
 													<span>
-														<Link to="archive/events">More &#8594;</Link>
+														<Link to="/archive/events_coverage">
+															More &#8594;
+														</Link>
 													</span>
 												</h5>
 											</div>
