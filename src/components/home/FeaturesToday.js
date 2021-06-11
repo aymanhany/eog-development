@@ -46,7 +46,7 @@ function FeaturesToday() {
 						<div className="title-section">
 							<h1>
 								<span>
-									<Link to="archive/features">Features</Link>
+									<Link to="/archive/features">Features</Link>
 								</span>
 							</h1>
 							<SwiperArrows
@@ -84,7 +84,7 @@ function FeaturesToday() {
 									1024: {
 										slidesPerView: 4,
 										spaceBetween: 40,
-									}
+									},
 								}}
 							>
 								{features.map((post) => (
@@ -124,7 +124,7 @@ function FeaturesToday() {
 						</div>
 						<h5 className="text-right my-2 mx-1">
 							<span>
-								<Link to="archive/features">More &#8594;</Link>
+								<Link to="/archive/features">More &#8594;</Link>
 							</span>
 						</h5>
 					</div>

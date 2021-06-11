@@ -169,6 +169,19 @@ header form input:focus {
   border: none;
 }
 
+header .custom-dropdown {
+  background: white;
+  left: 0;
+  top: 35px;
+  float: left;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  color: black;
+  display: block;
+  height: 100px;
+}
+
 .nav-list-container {
   width: 100%;
   border-bottom: 1px solid #f0f0f0;
@@ -184,6 +197,13 @@ header.active .nav-list-container {
   top: 0;
   left: 0;
   background: #fafafa;
+}
+
+.nav-link {
+  padding: 0;
+  color: white !important;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .navbar-default {
@@ -337,6 +357,7 @@ header.active .nav-list-container {
 }
 
 .navbar-brand img {
+  width: 250px;
   max-width: 100%;
 }
 

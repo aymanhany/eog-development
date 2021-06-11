@@ -23,7 +23,8 @@ function App() {
 				<Switch>
 					<Route exact path="/" component={HomePage} />
 					<Route path="/single/:type/:id" component={Single} />
-					<Route path="/archive/:type" component={Archive} />
+					<Route exact path="/archive/:type" component={Archive} />
+					<Route exact path="/archive/:type/:category" component={Archive} />
 					<Route path="/search" component={Search} />
 				</Switch>
 				<Footer />
